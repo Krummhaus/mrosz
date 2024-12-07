@@ -14,6 +14,12 @@ COPY backend/app /code/app
 # Install NGINX to serve static files
 RUN apt-get update && apt-get install -y nginx
 
+# Check if /etc/nginx exists and create if necessary (in case it's missing)
+RUN mkdir -p /etc/nginx/conf.d
+
+# Copy the custom nginx configuration to the correct directory
+COPY frontend/nginx.conf /etc/nginx/conf.d/nginx.conf
+
 # Copy the frontend files (HTML, CSS, JS) to the NGINX directory
 COPY frontend /usr/share/nginx/html
 
